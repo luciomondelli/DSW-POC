@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Text, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
 import axios from 'axios';
 
-const apiKey = 'ae03de4ced8d420488f203339240910'; // Reemplaza con tu clave de API de WeatherAPI
+const apiKey = ''; 
 
 const App = () => {
   const [city, setCity] = useState('');
@@ -13,7 +13,7 @@ const App = () => {
 
   const fetchWeather = async () => {
     if (!city) {
-      setError('Please enter a city');
+      setError('Por favor ingresa una ciudad');
       return;
     }
 
@@ -29,21 +29,21 @@ const App = () => {
 
       setWeatherData(currentWeatherResponse.data);
       setForecastData(forecastResponse.data);
-      setError(''); // Limpiar el mensaje de error si la solicitud es exitosa
+      setError(''); 
     } catch (err: any) {
-      console.log(err); // Para ver la estructura del error
+      console.log(err);
       if (axios.isAxiosError(err)) {
         if (err.response) {
           const errorMessage = err.response.data.error.message;
           setError(`Error: ${errorMessage}`);
         } else if (err.request) {
-          setError('No response from server. Please check your internet connection.');
+          setError('No hay respuesta del servidor. Verifique su conexión a Internet.');
         }
       } else {
-        setError(`An unexpected error occurred: ${err.message}`);
+        setError(`Ocurrio un error inesperado: ${err.message}`);
       }
-      setWeatherData(null); // Limpiar los datos anteriores en caso de error
-      setForecastData(null); // Limpiar los datos de pronóstico en caso de error
+      setWeatherData(null); 
+      setForecastData(null); 
     } finally {
       setLoading(false);
     }
@@ -52,12 +52,12 @@ const App = () => {
   return (
     <ScrollView style={styles.container}>
       <TextInput
-        placeholder="Enter city"
+        placeholder="Ingrese una ciudad"
         value={city}
         onChangeText={setCity}
         style={styles.input}
       />
-      <Button title="Get Weather" onPress={fetchWeather} color="#007BFF" />
+      <Button title="Obetener clima" onPress={fetchWeather} color="#007BFF" />
       {loading && <ActivityIndicator size="large" color="#007BFF" />}
       {error ? (
         <Text style={styles.error}>{error}</Text>
